@@ -5,11 +5,14 @@
 [![R-CMD-check](https://github.com/ElliotWinters/exwProject3/workflows/R-CMD-check/badge.svg)](https://github.com/ElliotWinters/exwProject3/actions)
 <!-- badges: end -->
 
-The goal of exwProject3 is to ...
+\code{exwProject3} is a demonstration of several tools for statistical inference and
+prediction learned in STAT 302 at the University of Washington. Functions for
+linear modeling, t-testing, k-nearest neighbors and random forest
+cross validation are included.
 
 ## Installation
 
-To download the corncob package, use the code below.
+To download the \code{exwProject3} package, use the code below.
 
 ``` r
 install.packages("exwProject3")
