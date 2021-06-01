@@ -18,3 +18,15 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(exwProject3)
 ```
+
+\code{exwProject3} is a demonstration of several tools for statistical inference and
+prediction learned in STAT 302 at the University of Washington. Functions for
+linear modeling, t-testing, k-nearest neighbors and random forest
+cross validation are included.
+
+Install \code{exwProject3} using:
+
+```{r eval=FALSE}
+devtools::install_github("ElliotWinters/exwProject3)
+```
+
