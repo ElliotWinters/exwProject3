@@ -1,0 +1,27 @@
+Package: exwProject3
+Title: STAT 302 Project 3
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Elliot",
+           family = "Winters",
+           role = c("aut", "cre"),
+           email = "exw@uw.edu",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: This package demonstrates material from STAT 302 at UW.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Imports: 
+    class,
+    dplyr,
+    ggplot2,
+    randomForest,
+    roxygen2
+Depends: 
+    R (>= 2.10)
+Suggests: 
+    rmarkdown,
+    knitr
+VignetteBuilder: knitr

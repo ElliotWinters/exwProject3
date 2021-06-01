@@ -1,0 +1,20 @@
+---
+title: "Project 3: exwProject3 Tutorial"
+author: "Elliot Winters"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{exwProject3 Tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(exwProject3)
+```
