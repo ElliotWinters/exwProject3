@@ -26,3 +26,15 @@ Alternatively, you can install the development version directly from GitHub.
 devtools::install_github("ElliotWinters/exwProject3")
 library(exwProject3)
 ```
+
+## Use
+
+The vignette demonstrates example usage of all main functions. You can see the vignette by using the following code:
+
+``` r
+library(exwProject3)
+# Use this to view the vignette in the exwProject3 HTML help
+help(package = "exwProject3", help_type = "html")
+# Use this to view the vignette as an isolated HTML file
+utils::browseVignettes(package = "exwProject3")
+```

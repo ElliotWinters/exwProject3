@@ -17,8 +17,10 @@ Imports:
     class,
     dplyr,
     ggplot2,
+    qpdf,
     randomForest,
-    roxygen2
+    roxygen2,
+    tibble
 Depends: 
     R (>= 2.10)
 Suggests: 

@@ -47,7 +47,7 @@ my_lm <- function(formula, data){
 
   # Matrix-multiply X and beta, create 'sum' column that sums each row.
   xTimesBeta <- as.data.frame(t_betahat_long * X_extract)
-  xTimesBetaWithSums <- mutate(.data = xTimesBeta, sum = NA)
+  xTimesBetaWithSums <- dplyr::mutate(.data = xTimesBeta, sum = NA)
 
   for (row in 1:nrow(xTimesBetaWithSums)){
     xTimesBetaWithSums[row, ncol(xTimesBetaWithSums)] <- sum(as.vector(as.numeric(xTimesBeta[row,])))

@@ -17,6 +17,8 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(exwProject3)
+library(dplyr)
+library(ggplot2)
 ```
 
 \code{exwProject3} is a demonstration of several tools for statistical inference and
@@ -29,4 +31,106 @@ Install \code{exwProject3} using:
 ```{r eval=FALSE}
 devtools::install_github("ElliotWinters/exwProject3)
 ```
+
+# my_t.test()
+
+```{r}
+my_t.test(my_gapminder$lifeExp, "two.sided", 60)
+
+my_t.test(my_gapminder$lifeExp, "less", 60)
+
+my_t.test(my_gapminder$lifeExp, "greater", 60)
+
+```
+
+Above are three demonstrations for the my_t.test() function. Each uses the 
+\code{lifeExp} variable from \code{my_gapminder} with a mu of 60. The first test
+uses a two-sided alternative hypothesis, producing a p-value of 0.093. Using a
+significant p-value of 0.05, we fail to reject the null hypothesis; we do not
+have significant evidence that the average life expectancy is something other
+than 60.
+
+The second test, with a "less than" alternative hypothesis, produces a p-value
+of 0.047. Since this is less than 0.05, this test has us reject the null hypothesis, 
+providing evidence that the average life expectancy is less than 60.
+
+The third and final test, with a "greater than" alternative hypothesis, gives
+a p-value of 0.95, much greater than 0.05. Thus we fail to reject the null
+hypothesis; we have no evidence that the average life expectancy is something other
+than 60.
+
+# my_lm()
+
+```{r}
+lm1_formula <- lifeExp ~ gdpPercap + continent
+lm1 <- my_lm(lm1_formula, data = my_gapminder)
+(lm1)
+```
+
+This call on my_lm() produces a \code{gdpPercap} coefficient of 4.45e-04. This
+means that as \code{gdpPercap} increases by 1, \code{lifeExp} increases by
+4.45e-04 according to our regression model. We can hypothesize the value
+of this \code{gdpPercap} coefficient with a null hypothesis: = 4.45e-04, and
+an alternative hypothesis: != 4.45e-04. As the associated p-value for this test
+is 6.41e-73, which is much less than the typical cut-off of 0.05, we reject the
+null hypothesis that the coefficient equals 4.45e-04.
+
+```{r}
+
+# This code is copied from the my_lm() function, and is condensed
+# for the purpose of declaring a new variable, mod_fits, for plotting
+# actual vs. fitted data. 
+  X_extract <- model.matrix(lm1_formula, my_gapminder)
+  extract_Frame <- model.frame(lm1_formula, my_gapminder)
+  Y_extract <- model.response(extract_Frame)
+  
+  beta_hat <- solve( t(X_extract) %*% X_extract ) %*% 
+    t(X_extract) %*% Y_extract  
+  
+  t_betahat <- t(beta_hat)
+  
+  t_betahat_long <- matrix(ncol = ncol(t_betahat),
+                         nrow = nrow(X_extract))
+  
+  for (col in 1:ncol(t_betahat_long)){
+    t_betahat_long[, col] <- rep(t_betahat[col], nrow(t_betahat))
+  }
+  
+  xTimesBeta <- as.data.frame(t_betahat_long * X_extract)
+  xTimesBetaWithSums <- mutate(.data = xTimesBeta, sum = NA)
+
+  for (row in 1:nrow(xTimesBetaWithSums)){
+    xTimesBetaWithSums[row, ncol(xTimesBetaWithSums)] <- sum(as.vector(as.numeric(xTimesBeta[row,])))
+  }
+  
+  mod_fits <- xTimesBetaWithSums$sum
+  
+  my_df <- data.frame(actual = my_gapminder$lifeExp, fitted = mod_fits)
+  ggplot(my_df, aes(x = fitted, y = actual)) +
+    geom_point(size = 0.5) +
+    geom_abline(slope = 1, intercept = 0, col = "red", 
+                lty = 2, size = 1.5) + 
+    theme_bw(base_size = 15) +
+    labs(x = "Fitted values", y = "Actual values", title = "Actual vs. Fitted") +
+    theme(plot.title = element_text(hjust = 0.5))
+  
+```
+
+Above we see actual and fitted values, comparing the true \code{lifeExp}
+values and the fitted/estimated values of the response variable 
+\code{lifeExp} based on our regression model using \code{gdpPercap} and
+\code{continent} as explanatory variables. We see that for observations with
+life expectancies of 70 or higher, our model does well in predicting the true
+value of \code{lifeExp}, but below that threshold these variables do not
+seem to accurately predict life expectancy.
+
+
+
+
+
+
+
+
+
+
 
