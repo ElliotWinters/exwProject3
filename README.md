@@ -3,6 +3,7 @@
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/ElliotWinters/exwProject3/workflows/R-CMD-check/badge.svg)](https://github.com/ElliotWinters/exwProject3/actions)
+[![codecov](https://codecov.io/gh/ElliotWinters/exwProject3/branch/master/graph/badge.svg?token=F5MRWV5ZNI)](https://codecov.io/gh/ElliotWinters/exwProject3)
 <!-- badges: end -->
 
 exwProject3 is a demonstration of several tools for statistical inference and
