@@ -1,0 +1,73 @@
+---
+title: "Analysis"
+author: "Elliot Winters"
+date: "6/4/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readr)
+library(exwProject3)
+library(dplyr)
+library(ggplot2)
+```
+
+```{r}
+my_penguins <- read.csv("C:/Users/Elliot/Desktop/STAT 302/projects/project_3/exwProject3/data/my_penguins.csv")
+my_penguins_class <- read.csv("C:/Users/Elliot/Desktop/STAT 302/projects/project_3/exwProject3/data/my_penguins_class.csv")
+my_penguins_train <- read.csv("C:/Users/Elliot/Desktop/STAT 302/projects/project_3/exwProject3/data/my_penguins_train.csv")
+
+source("C:/Users/Elliot/Desktop/STAT 302/projects/project_3/exwProject3/R/my_rf_cv.R")
+```
+
+
+```{r}
+data(my_penguins)
+data(my_penguins_train)
+data(my_penguins_class)
+
+rf_vector <- vector()
+for (k in c(2, 5, 10)){
+  for (j in 1:30){
+    rf_vector <- append(rf_vector, my_rf_cv(k))
+  }
+}
+
+k_vector <- rep(2, 30)
+k_vector <- append(k_vector, rep(5, 30))
+k_vector <- append(k_vector, rep(10, 30))
+
+rf_MSE <- data.frame("MSE" = rf_vector,
+                     "k" = as.factor(k_vector))
+
+
+plot_rf_cv <- ggplot(data = rf_MSE,
+                     aes(x = k, y = MSE)) +
+                geom_boxplot() +
+                theme_bw(base_size = 16) + 
+                labs(title = "MSE by number of folds (n=30)",
+                     x = "k (num. folds)")
+
+ggsave(path = "C:/Users/Elliot/Desktop/STAT 302/projects/project_3/exwProject3/Output/Figures",
+       filename = "plot_rf_cv.png")
+
+write.csv(rf_vector, "C:/Users/Elliot/Desktop/STAT 302/projects/project_3/exwProject3/Output/Results/simulation_results.csv")
+
+```
+
+```{r}
+
+mean_vec <- vector()
+sd_vec <- vector()
+for (m in c(2, 5, 10)){
+  mean_vec <- append(mean_vec, mean(dplyr::filter(rf_MSE, k == m)[,1]))
+  sd_vec <- append(sd_vec, sd(dplyr::filter(rf_MSE, k == m)[,1]))
+}
+
+rf_sd_table <- data.frame("k" = c(2, 5, 10),
+                          "Mean" = mean_vec,
+                          "SD" = sd_vec)
+
+saveRDS(rf_sd_table, "C:/Users/Elliot/Desktop/STAT 302/projects/project_3/exwProject3/Output/Results/summary_table.rds")
+```
