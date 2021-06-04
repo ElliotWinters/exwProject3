@@ -13,6 +13,8 @@
 #' my_knn_cv(my_penguins_train, my_penguins_class, 3, 5)
 #' my_knn_cv(my_penguins_train, my_penguins_class, 5, 5)
 #'
+#' @keywords prediction
+#'
 #' @export
 my_knn_cv <- function(train, cl, k_nn, k_cv){
 

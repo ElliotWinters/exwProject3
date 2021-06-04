@@ -9,6 +9,8 @@
 #' my_rf_cv(2)
 #' my_rf_cv(5)
 #'
+#' @keywords prediction
+#'
 #' @export
 my_rf_cv <- function(k){
 

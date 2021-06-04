@@ -13,6 +13,8 @@
 #' my_t.test(rnorm(20, mean = 0, sd = 1), "two.sided", 1)
 #' my_t.test(rnorm(20, mean = 0, sd = 1), "less", 3)
 #'
+#' @keywords inference
+#'
 #' @export
 my_t.test <- function(x, alternative, mu){
 

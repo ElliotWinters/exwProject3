@@ -12,6 +12,8 @@
 #' my_lm(mpg ~ hp, mtcars)
 #' my_lm(mpg ~ wt, mtcars)
 #'
+#' @keywords inference
+#'
 #' @export
 my_lm <- function(formula, data){
 
